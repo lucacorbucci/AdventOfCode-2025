@@ -5,8 +5,8 @@ def parse_input():
     with Path("./input.txt").open() as f:
         return [(line[0], int(line[1:])) for line in f]
 
-class Part1:
 
+class Part1:
     @staticmethod
     def solution(input_data: list) -> int:
         current_position = 50
@@ -20,8 +20,8 @@ class Part1:
 
         return result
 
-class Part2:
 
+class Part2:
     @staticmethod
     def solution(input_data: list) -> int:
         current_position = 50
@@ -44,6 +44,7 @@ class Part2:
             current_position = (current_position + distance) % max_value
 
         return result
+
 
 input_data = parse_input()
 part_1_result = Part1.solution(input_data)
