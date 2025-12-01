@@ -1,11 +1,9 @@
-
-import math
+from pathlib import Path
 
 
 def parse_input():
-    with open("./input.txt") as f:
-        return [(line[0], int(line[1:])) for line in f.readlines()]
-
+    with Path("./input.txt").open() as f:
+        return [(line[0], int(line[1:])) for line in f]
 
 class Part1:
 
@@ -21,9 +19,6 @@ class Part1:
             result += 1 if current_position == 0 else 0
 
         return result
-        
-
-
 
 class Part2:
 
@@ -40,23 +35,20 @@ class Part2:
                 if current_position != 0:
                     result += 1
                 result += abs(difference) // max_value
-            elif difference == 0 or difference == max_value:
+            elif difference in (0, max_value):
                 result += 1
             elif difference > max_value:
                 result += 1
                 result += abs(distance - (max_value - current_position)) // max_value
-                
+
             current_position = (current_position + distance) % max_value
 
-        return result 
-
-
-
-
+        return result
 
 input_data = parse_input()
 part_1_result = Part1.solution(input_data)
 print("Part 1: ", part_1_result)
 
 part_2_result = Part2.solution(input_data)
+print("Part 2: ", part_2_result)
 print("Part 2: ", part_2_result)

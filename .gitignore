@@ -13,3 +13,4 @@ wheels/
 .pytest_cache/
 .coverage
 .venv/
+__init__.py
