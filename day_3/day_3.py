@@ -27,5 +27,7 @@ class Part1:
         return output_joltage
 
 
+
+
 batteries = parse_input()
 print(Part1.solution(batteries))
