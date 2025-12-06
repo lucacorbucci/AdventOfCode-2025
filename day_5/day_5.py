@@ -4,7 +4,7 @@ from pathlib import Path
 def parse_input() -> tuple[list[tuple[int, int]], list[int]]:
     lines = []
     with Path("./input.txt").open() as f:
-        lines =  [line.strip() for line in f]
+        lines = [line.strip() for line in f]
     ranges, available_ids = [], []
     for line in lines:
         split_line = line.split("-")
@@ -15,6 +15,7 @@ def parse_input() -> tuple[list[tuple[int, int]], list[int]]:
         else:
             available_ids.append(int(line))
     return ranges, available_ids
+
 
 class Part1:
     def merge_overlapping_ranges(self, ranges: list[tuple[int, int]]) -> list[tuple[int, int]]:
@@ -52,6 +53,7 @@ class Part1:
                     break
         return count
 
+
 class Part2:
     def merge_overlapping_ranges(self, ranges: list[tuple[int, int]]) -> list[tuple[int, int]]:
         res = []
@@ -84,8 +86,6 @@ class Part2:
             count += end - start + 1
 
         return count
-
-
 
 
 ranges, available_ids = parse_input()
