@@ -1,4 +1,5 @@
 from collections import deque
+from functools import lru_cache
 from pathlib import Path
 
 
@@ -44,5 +45,39 @@ class Part1:
 
         return self.splits
 
+class Part2:
+    def __init__(self):
+        self.paths = {}
+
+    def dfs(self, matrix, x, y) -> int:
+        original_x = x
+        original_y = y
+        if (x, y) in self.paths:
+            return self.paths[(x, y)]
+
+        while x < len(matrix) and (matrix[x][y] == "." or matrix[x][y] == "S"):
+            x += 1
+
+        if x == len(matrix):
+            return 1
+
+        left = 0
+        right = 0
+        if matrix[x][y] == "^":
+            x += 1
+            left_y = y - 1
+            right_y = y + 1
+
+            if left_y >= 0 and (x, left_y):
+                left = self.dfs(matrix, x, left_y)
+            if right_y < len(matrix[0]) and (x, right_y):
+                right = self.dfs(matrix, x, right_y)
+        self.paths[(original_x, original_y)] = left + right
+        return left + right
+
+
+
 matrix, start = parse_input()
 print(Part1().count_splits(matrix, start))
+
+print(Part2().dfs(matrix, start[0], start[1]))
