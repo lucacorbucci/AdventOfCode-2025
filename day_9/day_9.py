@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def parse_input() -> list[list]:
-    with Path("./toy_input.txt").open() as f:
+    with Path("./input.txt").open() as f:
         return [[int(item) for item in line.strip().split(",")] for line in f]
 
 
