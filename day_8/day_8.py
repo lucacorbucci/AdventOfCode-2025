@@ -8,19 +8,20 @@ def parse_input() -> list[list]:
     with Path("./input.txt").open() as f:
         return [[int(item) for item in line.strip().split(",")] for line in f]
 
+
 class DSU:
     def __init__(self, n):
         self.parent = list(range(n))
-        self.rank = [1]*n
-        self.size = [1]*n
+        self.rank = [1] * n
+        self.size = [1] * n
 
     def find(self, node):
         if node == self.parent[node]:
             return node
-        
+
         self.parent[node] = self.find(self.parent[node])
         return self.parent[node]
-    
+
     def union(self, u, v):
         u = self.find(u)
         v = self.find(v)
@@ -44,8 +45,9 @@ class DSU:
         # we need to do this to avoid measuring the size of each component
         return sorted([self.size[i] for i in range(len(self.parent)) if self.parent[i] == i], reverse=True)[:k]
 
-    def get_number_of_connected_components(self, n)-> int:
+    def get_number_of_connected_components(self, n) -> int:
         return len({self.find(i) for i in range(n)})
+
 
 class Part1:
     def __init__(self):
@@ -54,10 +56,10 @@ class Part1:
     def compute_distances(self, positions, max_junctions):
         distances = []
         for i in range(len(positions)):
-            for j in range(i+1, len(positions)):
+            for j in range(i + 1, len(positions)):
                 x_i, y_i, z_i = positions[i]
                 x_j, y_j, z_j = positions[j]
-                distance = math.sqrt((x_i-x_j)**2 + (y_i-y_j)**2 + (z_i-z_j)**2)
+                distance = math.sqrt((x_i - x_j) ** 2 + (y_i - y_j) ** 2 + (z_i - z_j) ** 2)
                 distances.append((distance, i, j))
         self.distances = sorted(distances)[:max_junctions]
 
@@ -69,6 +71,7 @@ class Part1:
 
         return reduce(mul, dsu.top_k_component_sizes(k=3), 1)
 
+
 class Part2:
     def __init__(self):
         self.distances = []
@@ -76,10 +79,10 @@ class Part2:
     def compute_distances(self, positions):
         distances = []
         for i in range(len(positions)):
-            for j in range(i+1, len(positions)):
+            for j in range(i + 1, len(positions)):
                 x_i, y_i, z_i = positions[i]
                 x_j, y_j, z_j = positions[j]
-                distance = math.sqrt((x_i-x_j)**2 + (y_i-y_j)**2 + (z_i-z_j)**2)
+                distance = math.sqrt((x_i - x_j) ** 2 + (y_i - y_j) ** 2 + (z_i - z_j) ** 2)
                 distances.append((distance, i, j))
         self.distances = sorted(distances)
 
@@ -92,10 +95,7 @@ class Part2:
             if dsu.get_number_of_connected_components(num_positions) == 1:
                 break
 
-        return positions[i][0]*positions[j][0]
-
-
-
+        return positions[i][0] * positions[j][0]
 
 
 positions = parse_input()

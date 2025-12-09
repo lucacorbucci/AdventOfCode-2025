@@ -15,6 +15,7 @@ def parse_input() -> tuple[list[list[str]], tuple[int, int]]:
                 break
     return matrix, start
 
+
 class Part1:
     def __init__(self):
         self.visited = set()
@@ -25,24 +26,35 @@ class Part1:
         while queue:
             next_x, next_y = queue.popleft()
 
-            if next_x+1 < len(matrix) and matrix[next_x+1][next_y] == ".":
-                next_x = next_x+1
+            if next_x + 1 < len(matrix) and matrix[next_x + 1][next_y] == ".":
+                next_x = next_x + 1
                 if (next_x, next_y) not in self.visited:
                     self.visited.add((next_x, next_y))
                     queue.append((next_x, next_y))
-            elif next_x+1 < len(matrix) and matrix[next_x+1][next_y] == "^":
+            elif next_x + 1 < len(matrix) and matrix[next_x + 1][next_y] == "^":
                 left_y = next_y - 1
                 right_y = next_y + 1
-                if (next_x, left_y) not in self.visited and left_y >= 0 and next_x < len(matrix) and matrix[next_x][left_y] == ".":
+                if (
+                    (next_x, left_y) not in self.visited
+                    and left_y >= 0
+                    and next_x < len(matrix)
+                    and matrix[next_x][left_y] == "."
+                ):
                     self.visited.add((next_x, left_y))
                     queue.append((next_x, left_y))
-                if (next_x, right_y) not in self.visited and right_y < len(matrix[0]) and next_x < len(matrix) and matrix[next_x][right_y] == ".":
+                if (
+                    (next_x, right_y) not in self.visited
+                    and right_y < len(matrix[0])
+                    and next_x < len(matrix)
+                    and matrix[next_x][right_y] == "."
+                ):
                     self.visited.add((next_x, right_y))
                     queue.append((next_x, right_y))
 
                 self.splits += 1
 
         return self.splits
+
 
 class Part2:
     def __init__(self):
@@ -73,7 +85,6 @@ class Part2:
                 right = self.dfs(matrix, x, right_y)
         self.paths[(original_x, original_y)] = left + right
         return left + right
-
 
 
 matrix, start = parse_input()
